@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MELCOAM RESOURCE- Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -11,12 +14,13 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="home.html" class="logo">
-                <i class="fas fa-ship"></i>
-                MELCOAM RESOURCE
+            <a href="index.html" class="logo">
+                <img src="images/gallery/Melcoam_Logo-1.png" alt="">
+                <span class="company-name">MELCOAM <span>Resource</span></span>
+               
             </a>
             <ul class="nav-links">
-                <li><a href="home.html" class="active">Home</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -30,13 +34,43 @@
     </nav>
 
     <header class="hero-section">
-        <video autoplay muted loop playsinline class="hero-video">
-            <source src="images/Unique and Rare Short 4K Video_ Cargo ship sailing, full of containers, drone view.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <div class="hero-slider">
+            <div class="slider-container">
+                <div class="slide active">
+                    <img src="images/gallery/Screenshot_12-3-2025_14632_.jpeg" alt="Maritime Services 1">
+                </div>
+                <div class="slide">
+                    <img src="images/gallery/Screenshot_12-3-2025_1481_.jpeg" alt="Maritime Services 2">
+                </div>
+                <div class="slide">
+                    <img src="images/ship/IMG-20250310-WA0016.jpg" alt="Maritime Services 3">
+                </div>
+                <div class="slide">
+                    <img src="images/ship/IMG-20250310-WA0020.jpg" alt="Maritime Services 4">
+                </div>
+                <div class="slide">
+                    <img src="images/gallery/Screenshot_12-3-2025_14854_.jpeg" alt="Maritime Services 4">
+                </div>
+                <div class="slide">
+                    <img src="images/gallery/Screenshot_12-3-2025_14958_.jpeg" alt="Maritime Services 4">
+                </div>
+                <div class="slide">
+                    <img src="images/underwater/IMG-20250304-WA0102.jpg" alt="Maritime Services 4">
+                </div>
+            
+            </div>
+            <button class="slider-nav prev" aria-label="Previous slide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-nav next" aria-label="Next slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="slider-dots"></div>
+        </div>
         <div class="hero-content" data-aos="fade-up">
-            <h1>Excellence in Maritime Services</h1>
-            <p>onshore,offshore Service Provider</p>
+            
+            <h2><span class="top-tagline"><span class="">ONSHORE</span>,<span>OFFSHORE</span> SERVICE PROVIDER</span></h2>
+            <h3><span class="typewriter-text second-tagline">afloat and dock service |www.melcoamresource.co.uk</span></h3>
             <div class="hero-buttons">
                 <a href="services.html" class="btn-primary">Our Services</a>
             </div>
@@ -179,7 +213,6 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Maritime Services</h3>
-                    <p>Excellence in maritime solutions since 2000</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -197,9 +230,9 @@
                 <div class="footer-section">
                     <h3>Contact Info</h3>
                     <ul class="contact-info">
-                        <li><i class="fas fa-phone"></i> +2348080546672</li>
+                        <li><i class="fas fa-phone"></i> +234 808 0546 672</li>
                         <li><i class="fas fa-envelope"></i>melcoamresource@gmail.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 7, Prince Tajudeen, Oshodi Apapa-Lagos</li>
+                        <li><i class="fas fa-map-marker-alt"></i>7 PRINCE TAJUDEEN  OFF MARINE ROAD,OLODI APAPA,LAGOS.</li>
                     </ul>
                 </div>
             </div>

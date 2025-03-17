@@ -156,37 +156,27 @@ const addLoadingSpinner = () => {
 // Initialize loading spinner
 addLoadingSpinner();
 
-// Initialize Chart.js if present
-if (typeof Chart !== 'undefined' && document.getElementById('projectChart')) {
-    const ctx = document.getElementById('projectChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Project Progress',
-                data: [30, 45, 60, 70, 85, 95],
-                borderColor: '#0056b3',
-                tension: 0.4,
-                fill: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100
-                }
-            }
-        }
-    });
+// Image slider functionality
+function nextSlide(button) {
+    const slider = button.closest('.image-slider');
+    const container = slider.querySelector('.slider-container');
+    const images = container.querySelectorAll('.slider-image');
+    let activeIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+    
+    images[activeIndex].classList.remove('active');
+    activeIndex = (activeIndex + 1) % images.length;
+    images[activeIndex].classList.add('active');
+}
+
+function prevSlide(button) {
+    const slider = button.closest('.image-slider');
+    const container = slider.querySelector('.slider-container');
+    const images = container.querySelectorAll('.slider-image');
+    let activeIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+    
+    images[activeIndex].classList.remove('active');
+    activeIndex = (activeIndex - 1 + images.length) % images.length;
+    images[activeIndex].classList.add('active');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -444,16 +434,127 @@ taskItems.forEach(item => {
     }
 });
 
-// Add smooth scrolling to all links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+document.addEventListener('DOMContentLoaded', function() {
+    // Add smooth scrolling to all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
+        });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
         }
     });
+
+    // Mobile menu toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        navToggle.classList.toggle('active');
+    });
+
+    // Hero Slider functionality
+    const sliderContainer = document.querySelector('.slider-container');
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.querySelector('.slider-nav.prev');
+    const nextBtn = document.querySelector('.slider-nav.next');
+    const dotsContainer = document.querySelector('.slider-dots');
+    
+    let currentSlide = 0;
+    let autoplayInterval;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    // Create dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlides() {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateSlides();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateSlides();
+    }
+
+    function goToSlide(index) {
+        currentSlide = index;
+        updateSlides();
+        resetAutoplay();
+    }
+
+    function startAutoplay() {
+        autoplayInterval = setInterval(nextSlide, 5000);
+    }
+
+    function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        startAutoplay();
+    }
+
+    // Event listeners
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetAutoplay();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetAutoplay();
+    });
+
+    // Touch events for mobile
+    sliderContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    });
+
+    sliderContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+            resetAutoplay();
+        }
+    }
+
+    // Start autoplay
+    startAutoplay();
 });
