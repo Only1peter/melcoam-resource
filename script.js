@@ -5,6 +5,43 @@ AOS.init({
     once: true
 });
 
+// Continuous typewriter effect
+function typewriterEffect() {
+    const typewriterText = document.querySelector('.typewriter-text');
+    if (!typewriterText) return;
+
+    const text = typewriterText.textContent;
+    let isDeleting = false;
+    let charIndex = 0;
+    const typingSpeed = 100;
+    const deletingSpeed = 50;
+    const pauseTime = 2000;
+
+    function type() {
+        const currentText = text.substring(0, charIndex);
+        typewriterText.textContent = currentText;
+
+        if (!isDeleting && charIndex < text.length) {
+            charIndex++;
+            setTimeout(type, typingSpeed);
+        } else if (!isDeleting && charIndex === text.length) {
+            isDeleting = true;
+            setTimeout(type, pauseTime);
+        } else if (isDeleting && charIndex > 0) {
+            charIndex--;
+            setTimeout(type, deletingSpeed);
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            setTimeout(type, typingSpeed);
+        }
+    }
+
+    type();
+}
+
+// Start typewriter effect when DOM is loaded
+document.addEventListener('DOMContentLoaded', typewriterEffect);
+
 // Navigation and Scroll Effects
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
